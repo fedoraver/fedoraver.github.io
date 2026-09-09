@@ -6,222 +6,127 @@
     <title>Fedora Verification</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
-            min-height: 100vh;
-            background: #101010;
-            color: #eeeeee;
-            font-family: Arial, Helvetica, sans-serif;
+            background: #111;
+            color: #ddd;
+            font-family: Arial, sans-serif;
         }
 
-        /* Top navigation */
-        .navbar {
-            height: 72px;
+        header {
+            height: 60px;
             display: flex;
             align-items: center;
-            padding: 0 28px;
-            background: #171717;
+            padding: 0 20px;
             border-bottom: 1px solid #292929;
         }
 
-        .brand {
+        header img {
+            width: 36px;
+            height: 36px;
+            margin-right: 18px;
+        }
+
+        nav {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-right: 35px;
+            gap: 4px;
         }
 
-        .brand img {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .brand-name {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .tabs {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tab {
-            border: none;
-            background: transparent;
-            color: #999999;
-            padding: 11px 16px;
-            border-radius: 7px;
+        nav button {
+            background: none;
+            border: 0;
+            color: #888;
+            padding: 9px 13px;
             font-size: 14px;
-            cursor: default;
         }
 
-        .tab.active {
-            background: #292929;
-            color: #ffffff;
+        nav .active {
+            color: #fff;
+            background: #242424;
+            border-radius: 4px;
         }
 
-        /* Main content */
-        .container {
-            width: min(900px, calc(100% - 40px));
-            margin: 55px auto;
+        main {
+            width: 850px;
+            max-width: calc(100% - 40px);
+            margin: 45px auto;
         }
 
-        .title {
-            font-size: 27px;
-            font-weight: 700;
-            margin: 0 0 12px;
+        h1 {
+            font-size: 24px;
+            margin: 0 0 8px;
         }
 
-        .subtitle {
-            color: #a8a8a8;
-            font-size: 15px;
-            margin: 0 0 28px;
+        p {
+            color: #999;
+            font-size: 14px;
         }
 
-        /* Embed */
-        .embed-wrapper {
+        iframe {
+            display: block;
             width: 100%;
             height: 500px;
-            background: #181818;
-            border: 1px solid #2d2d2d;
-            border-radius: 10px;
-            overflow: hidden;
+            margin-top: 25px;
+            border: 1px solid #292929;
+            background: white;
         }
 
-        .embed-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            background: #ffffff;
-        }
-
-        /* Disclaimer */
         .disclaimer {
-            margin-top: 24px;
-            padding: 20px;
-            background: #351717;
-            border: 1px solid #632525;
-            border-radius: 9px;
+            margin-top: 20px;
+            padding: 16px;
+            background: #301717;
+            border: 1px solid #542222;
         }
 
-        .disclaimer-title {
-            color: #ff7777;
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .disclaimer strong {
+            color: #e66;
         }
 
-        .disclaimer-text {
-            margin: 0;
-            color: #d9baba;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 650px) {
-            .navbar {
-                padding: 0 15px;
-            }
-
-            .brand {
-                margin-right: 10px;
-            }
-
-            .brand-name {
-                display: none;
-            }
-
-            .tab {
-                padding: 10px 9px;
-                font-size: 13px;
-            }
-
-            .container {
-                margin-top: 35px;
-            }
-
-            .title {
-                font-size: 22px;
-            }
-
-            .embed-wrapper {
-                height: 450px;
-            }
+        .disclaimer p {
+            margin-bottom: 0;
+            color: #c99;
+            line-height: 1.5;
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="brand">
-            <img src="Sparkle_Time_Fedora.webp" alt="Fedora">
-            <span class="brand-name">Fedora Verification</span>
-        </div>
+<header>
+    <img src="Sparkle_Time_Fedora.webp" alt="Fedora">
 
-        <div class="tabs">
-            <button class="tab">Help</button>
-            <button class="tab">Set Up Fedora</button>
-            <button class="tab active">Verify</button>
-        </div>
+    <nav>
+        <button>Help</button>
+        <button>Set Up Fedora</button>
+        <button class="active">Verify</button>
     </nav>
+</header>
 
-    <main class="container">
+<main>
+    <h1>Link your Roblox Account with Fedora Verification to continue!</h1>
 
-        <h1 class="title">
-            Link your Roblox Account with Fedora Verification to continue!
-        </h1>
+    <p>Complete the verification below to continue.</p>
 
-        <p class="subtitle">
-            Complete the verification below to continue.
+    <iframe id="verification" src="https://google.com"></iframe>
+
+    <div class="disclaimer">
+        <strong>Disclaimer</strong>
+
+        <p>
+            We do not log IPs, or steal any information. This is simply used
+            as a verification service. Do not trust phishing pages, such as
+            "fedoraverreal.github.io" or websites similar to it. The only real
+            website will be fedoraver.github.io.
         </p>
+    </div>
+</main>
 
-        <div class="embed-wrapper">
-            <iframe
-                id="verificationEmbed"
-                title="Fedora Verification"
-                src="https://google.com"
-                referrerpolicy="no-referrer">
-            </iframe>
-        </div>
+<script>
+    // Change this to your verification URL.
+    const EMBED_URL = "https://google.com";
 
-        <section class="disclaimer">
-            <div class="disclaimer-title">Disclaimer</div>
-
-            <p class="disclaimer-text">
-                We do not log IPs, or steal any information. This is simply
-                used as a verification service. Do not trust phishing pages,
-                such as "fedoraverreal.github.io" or websites similar to it.
-                The only real website will be fedoraver.github.io.
-            </p>
-        </section>
-
-    </main>
-
-    <script>
-        /*
-         * ============================================================
-         * CONFIGURATION
-         * ============================================================
-         *
-         * Change this URL to the verification page you want embedded.
-         *
-         * Example:
-         * const EMBED_URL = "https://example.com/verify";
-         */
-        const EMBED_URL = "https://google.com";
-
-        // Apply the configured URL to the iframe.
-        document.getElementById("verificationEmbed").src = EMBED_URL;
-    </script>
+    document.getElementById("verification").src = EMBED_URL;
+</script>
 
 </body>
 </html>
