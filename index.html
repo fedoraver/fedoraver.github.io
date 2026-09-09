@@ -3,602 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Manager</title>
+    <title>Fedora Verification</title>
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
             min-height: 100vh;
+            background: #101010;
+            color: #eeeeee;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Top navigation */
+        .navbar {
+            height: 72px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 0 28px;
+            background: #171717;
+            border-bottom: 1px solid #292929;
         }
 
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-right: 35px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab {
+            border: none;
+            background: transparent;
+            color: #999999;
+            padding: 11px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: default;
+        }
+
+        .tab.active {
+            background: #292929;
+            color: #ffffff;
+        }
+
+        /* Main content */
         .container {
-            width: 100%;
-            max-width: 500px;
+            width: min(900px, calc(100% - 40px));
+            margin: 55px auto;
         }
 
-        .card {
-            background: white;
+        .title {
+            font-size: 27px;
+            font-weight: 700;
+            margin: 0 0 12px;
+        }
+
+        .subtitle {
+            color: #a8a8a8;
+            font-size: 15px;
+            margin: 0 0 28px;
+        }
+
+        /* Embed */
+        .embed-wrapper {
+            width: 100%;
+            height: 500px;
+            background: #181818;
+            border: 1px solid #2d2d2d;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
+        .embed-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #ffffff;
         }
 
-        .card-header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 24px;
+            padding: 20px;
+            background: #351717;
+            border: 1px solid #632525;
+            border-radius: 9px;
         }
 
-        .card-header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .card-body {
-            padding: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
+        .disclaimer-title {
+            color: #ff7777;
+            font-size: 17px;
+            font-weight: 700;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
+        }
+
+        .disclaimer-text {
+            margin: 0;
+            color: #d9baba;
             font-size: 14px;
+            line-height: 1.6;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            margin-top: 10px;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .btn-danger {
-            background: #ff6b6b;
-            color: white;
-            width: auto;
-            padding: 8px 15px;
-            font-size: 14px;
-        }
-
-        .btn-danger:hover {
-            background: #ff5252;
-        }
-
-        .toggle-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .toggle-link a {
-            color: #667eea;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .toggle-link a:hover {
-            text-decoration: underline;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            animation: slideIn 0.3s ease-in-out;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 0 15px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .brand {
+                margin-right: 10px;
             }
-        }
 
-        .account-item {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            .brand-name {
+                display: none;
+            }
 
-        .account-info {
-            flex: 1;
-        }
+            .tab {
+                padding: 10px 9px;
+                font-size: 13px;
+            }
 
-        .account-info h3 {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
+            .container {
+                margin-top: 35px;
+            }
 
-        .account-info p {
-            color: #666;
-            font-size: 13px;
-        }
+            .title {
+                font-size: 22px;
+            }
 
-        .account-actions {
-            display: flex;
-            gap: 10px;
-            margin-left: 10px;
-        }
-
-        .account-actions button {
-            width: auto;
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        .btn-logout {
-            background: #ff9800;
-            color: white;
-        }
-
-        .btn-logout:hover {
-            background: #f57c00;
-        }
-
-        .password-strength {
-            font-size: 12px;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        .strength-weak {
-            color: #ff6b6b;
-        }
-
-        .strength-medium {
-            color: #ffa500;
-        }
-
-        .strength-strong {
-            color: #51cf66;
-        }
-
-        .welcome-text {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .welcome-text strong {
-            color: #667eea;
+            .embed-wrapper {
+                height: 450px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h1>Account Manager</h1>
-                <p>Manage your accounts securely</p>
-            </div>
-            <div class="card-body">
-                <!-- Sign Up Form -->
-                <div id="signupForm">
-                    <div id="signupMessage"></div>
-                    <div class="form-group">
-                        <label for="signupUsername">Username</label>
-                        <input type="text" id="signupUsername" placeholder="Choose a username">
-                    </div>
-                    <div class="form-group">
-                        <label for="signupEmail">Email</label>
-                        <input type="email" id="signupEmail" placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" placeholder="At least 6 characters">
-                        <div id="passwordStrength"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupConfirmPassword">Confirm Password</label>
-                        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password">
-                    </div>
-                    <button class="btn-primary" onclick="signup()">Sign Up</button>
-                    <div class="toggle-link">
-                        Already have an account? <a onclick="toggleForms()">Log In</a>
-                    </div>
-                </div>
 
-                <!-- Login Form -->
-                <div id="loginForm" class="hidden">
-                    <div id="loginMessage"></div>
-                    <div class="form-group">
-                        <label for="loginUsername">Username or Email</label>
-                        <input type="text" id="loginUsername" placeholder="Enter your username or email">
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password">
-                    </div>
-                    <button class="btn-primary" onclick="login()">Log In</button>
-                    <div class="toggle-link">
-                        Don't have an account? <a onclick="toggleForms()">Sign Up</a>
-                    </div>
-                </div>
-
-                <!-- Dashboard (After Login) -->
-                <div id="dashboard" class="hidden">
-                    <div class="welcome-text">
-                        Welcome, <strong id="welcomeUsername"></strong>!
-                    </div>
-                    <div id="accountsList"></div>
-                    <button class="btn-logout" onclick="logout()">Log Out</button>
-                </div>
-            </div>
+    <nav class="navbar">
+        <div class="brand">
+            <img src="Sparkle_Time_Fedora.webp" alt="Fedora">
+            <span class="brand-name">Fedora Verification</span>
         </div>
-    </div>
+
+        <div class="tabs">
+            <button class="tab">Help</button>
+            <button class="tab">Set Up Fedora</button>
+            <button class="tab active">Verify</button>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <h1 class="title">
+            Link your Roblox Account with Fedora Verification to continue!
+        </h1>
+
+        <p class="subtitle">
+            Complete the verification below to continue.
+        </p>
+
+        <div class="embed-wrapper">
+            <iframe
+                id="verificationEmbed"
+                title="Fedora Verification"
+                src="https://google.com"
+                referrerpolicy="no-referrer">
+            </iframe>
+        </div>
+
+        <section class="disclaimer">
+            <div class="disclaimer-title">Disclaimer</div>
+
+            <p class="disclaimer-text">
+                We do not log IPs, or steal any information. This is simply
+                used as a verification service. Do not trust phishing pages,
+                such as "fedoraverreal.github.io" or websites similar to it.
+                The only real website will be fedoraver.github.io.
+            </p>
+        </section>
+
+    </main>
 
     <script>
-        // Initialize localStorage
-        function initializeStorage() {
-            if (!localStorage.getItem('accounts')) {
-                localStorage.setItem('accounts', JSON.stringify([]));
-            }
-            if (!localStorage.getItem('currentUser')) {
-                localStorage.setItem('currentUser', JSON.stringify(null));
-            }
-        }
+        /*
+         * ============================================================
+         * CONFIGURATION
+         * ============================================================
+         *
+         * Change this URL to the verification page you want embedded.
+         *
+         * Example:
+         * const EMBED_URL = "https://example.com/verify";
+         */
+        const EMBED_URL = "https://google.com";
 
-        // Get all accounts
-        function getAllAccounts() {
-            return JSON.parse(localStorage.getItem('accounts') || '[]');
-        }
-
-        // Save accounts
-        function saveAccounts(accounts) {
-            localStorage.setItem('accounts', JSON.stringify(accounts));
-        }
-
-        // Get current user
-        function getCurrentUser() {
-            return JSON.parse(localStorage.getItem('currentUser') || 'null');
-        }
-
-        // Set current user
-        function setCurrentUser(user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-
-        // Check password strength
-        function checkPasswordStrength(password) {
-            let strength = 0;
-            if (password.length >= 6) strength++;
-            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
-            if (password.match(/[0-9]/)) strength++;
-            if (password.match(/[^a-zA-Z0-9]/)) strength++;
-
-            return strength;
-        }
-
-        // Display password strength
-        function displayPasswordStrength(password) {
-            const strengthDiv = document.getElementById('passwordStrength');
-            if (!password) {
-                strengthDiv.innerHTML = '';
-                return;
-            }
-
-            const strength = checkPasswordStrength(password);
-            let text = '';
-            let className = '';
-
-            if (strength <= 1) {
-                text = '❌ Weak';
-                className = 'strength-weak';
-            } else if (strength <= 2) {
-                text = '⚠️ Medium';
-                className = 'strength-medium';
-            } else if (strength === 3) {
-                text = '✓ Strong';
-                className = 'strength-strong';
-            } else {
-                text = '✓✓ Very Strong';
-                className = 'strength-strong';
-            }
-
-            strengthDiv.innerHTML = `<div class="password-strength ${className}">${text}</div>`;
-        }
-
-        // Show message
-        function showMessage(elementId, message, type) {
-            const messageDiv = document.getElementById(elementId);
-            messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
-            setTimeout(() => {
-                messageDiv.innerHTML = '';
-            }, 4000);
-        }
-
-        // Toggle between forms
-        function toggleForms() {
-            const signupForm = document.getElementById('signupForm');
-            const loginForm = document.getElementById('loginForm');
-
-            signupForm.classList.toggle('hidden');
-            loginForm.classList.toggle('hidden');
-
-            // Clear messages
-            document.getElementById('signupMessage').innerHTML = '';
-            document.getElementById('loginMessage').innerHTML = '';
-
-            // Clear inputs
-            document.getElementById('signupUsername').value = '';
-            document.getElementById('signupEmail').value = '';
-            document.getElementById('signupPassword').value = '';
-            document.getElementById('signupConfirmPassword').value = '';
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('passwordStrength').innerHTML = '';
-        }
-
-        // Sign up
-        function signup() {
-            const username = document.getElementById('signupUsername').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-
-            // Validation
-            if (!username || !email || !password || !confirmPassword) {
-                showMessage('signupMessage', '❌ All fields are required', 'error');
-                return;
-            }
-
-            if (username.length < 3) {
-                showMessage('signupMessage', '❌ Username must be at least 3 characters', 'error');
-                return;
-            }
-
-            if (password.length < 6) {
-                showMessage('signupMessage', '❌ Password must be at least 6 characters', 'error');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showMessage('signupMessage', '❌ Passwords do not match', 'error');
-                return;
-            }
-
-            if (!email.includes('@')) {
-                showMessage('signupMessage', '❌ Please enter a valid email', 'error');
-                return;
-            }
-
-            const accounts = getAllAccounts();
-
-            // Check if username already exists
-            if (accounts.find(acc => acc.username.toLowerCase() === username.toLowerCase())) {
-                showMessage('signupMessage', '❌ Username already exists', 'error');
-                return;
-            }
-
-            // Check if email already exists
-            if (accounts.find(acc => acc.email.toLowerCase() === email.toLowerCase())) {
-                showMessage('signupMessage', '❌ Email already registered', 'error');
-                return;
-            }
-
-            // Create new account
-            const newAccount = {
-                id: Date.now(),
-                username: username,
-                email: email,
-                password: password,
-                createdAt: new Date().toLocaleDateString()
-            };
-
-            accounts.push(newAccount);
-            saveAccounts(accounts);
-
-            showMessage('signupMessage', '✓ Account created successfully! Please log in.', 'success');
-
-            // Clear form
-            document.getElementById('signupUsername').value = '';
-            document.getElementById('signupEmail').value = '';
-            document.getElementById('signupPassword').value = '';
-            document.getElementById('signupConfirmPassword').value = '';
-            document.getElementById('passwordStrength').innerHTML = '';
-
-            // Switch to login form
-            setTimeout(() => {
-                toggleForms();
-            }, 2000);
-        }
-
-        // Login
-        function login() {
-            const usernameOrEmail = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!usernameOrEmail || !password) {
-                showMessage('loginMessage', '❌ Username/Email and password are required', 'error');
-                return;
-            }
-
-            const accounts = getAllAccounts();
-            const account = accounts.find(acc =>
-                (acc.username.toLowerCase() === usernameOrEmail.toLowerCase() ||
-                 acc.email.toLowerCase() === usernameOrEmail.toLowerCase()) &&
-                acc.password === password
-            );
-
-            if (!account) {
-                showMessage('loginMessage', '❌ Invalid credentials', 'error');
-                return;
-            }
-
-            setCurrentUser(account);
-            showMessage('loginMessage', '✓ Logged in successfully!', 'success');
-
-            setTimeout(() => {
-                showDashboard();
-            }, 1000);
-        }
-
-        // Logout
-        function logout() {
-            setCurrentUser(null);
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            showLoginForm();
-        }
-
-        // Show dashboard
-        function showDashboard() {
-            const user = getCurrentUser();
-            if (!user) {
-                showLoginForm();
-                return;
-            }
-
-            document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-
-            document.getElementById('welcomeUsername').textContent = user.username;
-
-            // Display user info
-            const accountsList = document.getElementById('accountsList');
-            accountsList.innerHTML = `
-                <div class="account-item">
-                    <div class="account-info">
-                        <h3>${user.username}</h3>
-                        <p>Email: ${user.email}</p>
-                        <p>Member since: ${user.createdAt}</p>
-                    </div>
-                    <div class="account-actions">
-                        <button class="btn-danger" onclick="deleteAccount(${user.id})">Delete Account</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Show login form
-        function showLoginForm() {
-            document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('dashboard').classList.add('hidden');
-        }
-
-        // Delete account
-        function deleteAccount(accountId) {
-            if (!confirm('Are you sure? This action cannot be undone.')) {
-                return;
-            }
-
-            const accounts = getAllAccounts();
-            const filteredAccounts = accounts.filter(acc => acc.id !== accountId);
-            saveAccounts(filteredAccounts);
-
-            setCurrentUser(null);
-            showMessage('loginMessage', '✓ Account deleted successfully', 'success');
-            showLoginForm();
-        }
-
-        // Event listeners
-        document.getElementById('signupPassword').addEventListener('input', (e) => {
-            displayPasswordStrength(e.target.value);
-        });
-
-        // Initialize
-        initializeStorage();
-        const currentUser = getCurrentUser();
-        if (currentUser) {
-            showDashboard();
-        } else {
-            showLoginForm();
-        }
+        // Apply the configured URL to the iframe.
+        document.getElementById("verificationEmbed").src = EMBED_URL;
     </script>
+
 </body>
 </html>
